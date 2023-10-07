@@ -3,21 +3,13 @@ import PiniaIcon from "./shared/components/icons/PiniaIcon.vue";
 </script>
 
 <template>
-  <PiniaIcon />
-  <nav>
-    <RouterLink to="/">Counter Store</RouterLink>
-    <RouterLink :to="{ name: 'counter-setup' }">Counter Setup</RouterLink>
-  </nav>
-  <RouterView />
+  <div class="mx-auto max-w-md">
+    <PiniaIcon />
+    <nav id="navbar">
+      <RouterLink to="/">Counter Store</RouterLink>
+      <RouterLink :to="{ name: 'counter-setup' }">Counter Setup</RouterLink>
+      <RouterLink :to="{ name: 'clients' }">Clients</RouterLink>
+    </nav>
+    <RouterView />
+  </div>
 </template>
-
-<style setup>
-nav {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-</style>

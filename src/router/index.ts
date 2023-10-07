@@ -13,6 +13,24 @@ const router = createRouter({
       name: "counter-setup",
       component: () => import("@/counter/pages/CounterSetup.vue"),
     },
+    {
+      path: "/clients",
+      name: "clients",
+      redirect: { name: "clients-list" },
+      component: () => import("@/clients/layouts/ClientsLayout.vue"),
+      children: [
+        {
+          path: "/list",
+          name: "clients-list",
+          component: () => import("@/clients/pages/ClientsList.vue"),
+        },
+        {
+          path: "/clients/:id",
+          name: "single-client",
+          component: () => import("@/clients/pages/SingleClient.vue"),
+        },
+      ],
+    },
   ],
 });
 
