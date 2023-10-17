@@ -3,7 +3,7 @@ import PiniaIcon from "./shared/components/icons/PiniaIcon.vue";
 </script>
 
 <template>
-  <div class="mx-auto max-w-md">
+  <div class="w-1/3">
     <PiniaIcon />
     <nav id="navbar">
       <RouterLink to="/">Counter Store</RouterLink>
