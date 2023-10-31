@@ -1,40 +1,33 @@
 <script setup lang="ts">
 import useClient from "@/clients/composables/useClient";
-import { useMutation } from "@tanstack/vue-query";
-import { useRoute } from "vue-router";
-import type { Client } from "@/clients/interfaces/client-interface";
-import clientsApi from "@/api/clients-api";
+import { useRoute, useRouter } from "vue-router";
 import { watch } from "vue";
 
 const route = useRoute();
-const { client, isLoading } = useClient(+route.params.id);
+const router = useRouter();
 
-const updateClient = async (client: Client): Promise<Client> => {
-  const { data } = await clientsApi.patch<Client>(
-    `/clients/${client.id}`,
-    client
-  );
-  return data;
-};
-
-const clientMutation = useMutation(updateClient);
+const { client, isError, clientMutation, isUpdating, isErrorUpdating } =
+  useClient(+route.params.id);
 
 watch(clientMutation.isSuccess, () => {
   setTimeout(() => {
     clientMutation.reset();
   }, 2000);
 });
+
+watch(isError, () => {
+  if (isError.value) {
+    router.replace({ name: "clients" });
+  }
+});
 </script>
 <template>
-  <h3
-    class="py-2 text-center text-white bg-blue-300 rounded"
-    v-if="clientMutation.isLoading.value"
-  >
+  <h3 class="py-2 text-center text-white bg-blue-300 rounded" v-if="isUpdating">
     Saving...
   </h3>
   <h3
     class="py-2 text-center text-white bg-blue-300 rounded"
-    v-if="clientMutation.isSuccess.value"
+    v-if="isErrorUpdating"
   >
     Saved
   </h3>

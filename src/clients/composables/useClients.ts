@@ -18,11 +18,13 @@ export const useClients = () => {
     getClients(currentPage.value)
   );
 
-  watch(data, (clients) => {
-    if (clients) {
-      store.setClients(clients);
-    }
-  });
+  watch(
+    data,
+    (clients) => {
+      if (clients) store.setClients(clients);
+    },
+    { immediate: true }
+  );
 
   return {
     clients,
